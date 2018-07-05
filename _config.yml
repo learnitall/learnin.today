@@ -94,7 +94,7 @@ analytics:
 # Site Author
 author:
   name             : "Ryan Drew"
-  avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  avatar           : "/assets/images/bio-photo.png" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "Lover of all things Linux, FOSS and security. Strives to spend each day learning it all and saving cats."
   location         : "Colorado"
   email            : "learnitall0@gmail.com"

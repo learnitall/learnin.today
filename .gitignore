@@ -1,3 +1,7 @@
+# Jekyll Files
 _site
 .sass-cache
 .jekyll-metadata
+
+# OSX Files
+*.DS_STORE

@@ -95,7 +95,7 @@ analytics:
 author:
   name             : "Ryan Drew"
   avatar           : "/assets/images/bio-photo.png" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "Lover of all things Linux, FOSS and security. Strives to spend each day learning it all and saving cats."
+  bio              : "Lover of all things Linux, FOSS and security. Everday brings new ways to learn something new and save a cat."
   location         : "Colorado"
   email            : "learnitall0@gmail.com"
   uri              :
@@ -261,7 +261,7 @@ defaults:
       read_time: true
       comments: # true
       share: true
-      related: true
+      related: false
 
   # _pages
   - scope:

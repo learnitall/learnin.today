@@ -8,3 +8,7 @@ _site
 
 # Vim Files
 *.swp
+
+# Bundle files
+.bundle
+vendor

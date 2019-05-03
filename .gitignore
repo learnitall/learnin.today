@@ -5,3 +5,6 @@ _site
 
 # OSX Files
 *.DS_STORE
+
+# Vim Files
+*.swp

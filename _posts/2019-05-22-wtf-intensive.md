@@ -6,7 +6,7 @@ categories:
 
 During the past week on this global intensive for COEN3050, our little
 band of merry travelers have gone on 24+ excursions within four distinct
-regions: Kampala, Entebbe, Lake Bunyonyi and Kigali. We've seen everything from
+regions: Kampala, Kabale, Lake Bunyonyi and Kigali. We've seen everything from
 the Katanga slums and the Kigali Genocide Memorial, to incredible jaw-dropping
 feats of nature, all of which we will never forget.
 

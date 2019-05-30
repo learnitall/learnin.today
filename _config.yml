@@ -128,7 +128,7 @@ author:
       url: "https://learnitall.github.io/feed.xml"
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
-      # url: "https://instagram.com/"
+      url: "https://instagram.com/0xrydr"
     - label: "LinkedIn"
       url: "https://linkedin.com/in/ryan-drew"
       icon: "fab fa-fw fa-linkedin"
@@ -154,7 +154,7 @@ footer:
       # url:
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
-      # url:
+      url: "https://www.instagram.com/0xrydr/"
 
 
 # Reading Files

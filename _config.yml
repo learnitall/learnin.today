@@ -300,3 +300,5 @@ defaults:
       type: pages
     values:
       author_profile: false
+
+theme: jekyll-theme-cayman

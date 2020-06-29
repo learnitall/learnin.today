@@ -10,7 +10,7 @@ locale                   : "en-US"
 title                    : "Learn It All"
 title_separator          : "-"
 name                     : "Ryan Drew"
-description              : "Personal blog acting as a brain dump for adventures and projects with the hope of starting discussion and learning something new. Powered by Jekyll and Vim."
+description              : "Welcome to my brain dump. Powered by Jekyll, Vim and Fedora."
 url                      : "https://learnin.today" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : "learnitall/learnin.today" # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
@@ -101,7 +101,7 @@ analytics:
 author:
   name             : "Ryan Drew"
   avatar           : "/assets/images/bio-photo.png" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "Can't wait to change my username to learntitall"
+  bio              : 'Have a quote: <a href="https://inspirobot.me/" target="_blank">https://inspirobot.me/</a>'
 #  location         : Colorado"
 #  email            : "learnitall0@gmail.com"
   links:
@@ -151,7 +151,6 @@ footer:
       # url:
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
-      url: "https://www.instagram.com/0xrydr/"
 
 
 # Reading Files

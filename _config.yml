@@ -101,7 +101,7 @@ analytics:
 author:
   name             : "Ryan Drew"
   avatar           : "/assets/images/bio-photo.png" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : 'Have a quote: <a href="https://inspirobot.me/" target="_blank">https://inspirobot.me/</a>'
+  bio              : '<a href="https://blacklivesmatter.com/" target="_blank">Black Lives Matter</a>'
 #  location         : Colorado"
 #  email            : "learnitall0@gmail.com"
   links:

@@ -18,14 +18,14 @@ The goal of this post is not to be toxic or hurtful in any way- I have a ton of 
 
 I wanted to spend a week this summer putting together an OpenStack cloud so I can have my own personal environment for practicing Red Team and Blue Team operations. Three weeks later, my cluster is still broken, buggy and my patience has run out.
 
-OpenStack seems so awesome and "sexy", but I had no idea what I was getting myself into. [stratoscale](https://www.stratoscale.com/), a major competitor in the cloud industry, published a report entitled [2019 Escaping OpenStack Survey Report](https://www.stratoscale.com/resources/ebooks/2019-escaping-openstack-survey-report/) which finds:
+OpenStack seems so awesome and "sexy", but can be a pain to manage and install. [stratoscale](https://www.stratoscale.com/), a major competitor in the cloud industry, published a report entitled [2019 Escaping OpenStack Survey Report](https://www.stratoscale.com/resources/ebooks/2019-escaping-openstack-survey-report/) which finds:
 
 * "88% of companies reported having teams of over 20 people dedicated to their OpenStack deployments"
 * "47% of them reported needing more than 60 people"
 
 (These quotes were lifted from a blog post stratoscale published on OpenStack alternatives. It can be found at: [https://www.stratoscale.com/blog/openstack/openstack-alternatives/](https://www.stratoscale.com/blog/openstack/openstack-alternatives/).)
 
-Unfortunately, after working with OpenStack Ansible I can say that these statistics don't surprise me at all. OpenStack Ansible has such amazing potential, but the number of manual source code changes I had to go through to get this thing to not even work was unreal. In light of letting go of OpenStack for the time being, here are all the changes that I can at least remember, which I had to make to OpenStack Ansible to actually get some momentum. For reference, I'm rocking a CentOS 7 Train deployment.
+Unfortunately, after working with OpenStack Ansible I can say that these statistics don't surprise me at all. OpenStack Ansible has such amazing potential to ease the management overhead of an OpenStack cluster, but the number of manual source code changes I had to go through to get this thing to not even work was unreal. In light of letting go of OpenStack Ansible for the time being, here are all the changes, which I can at least remember, that I had to make to OpenStack Ansible to actually get some momentum. For reference, I'm rocking a CentOS 7 Train deployment.
 
 ## Inventory Generation
 
@@ -411,7 +411,7 @@ Can you see it? What if I told you each of these variables is a URL constructed 
 Oh and I sh\*t you not, it's been missing that colon for over two years. Look at this comparison UI that shows a diff between the first commit in the [openstack-ansible-os_zun](https://opendev.org/openstack/openstack-ansible-os_zun) repository to the last commit in the master branch (look for line 158 in the file `defaults/main.yml`): [https://github.com/openstack/openstack-ansible-os_zun/compare/daf9f9d60a00edf5c874a35b621acc7d0e5a8e06..master](https://github.com/openstack/openstack-ansible-os_zun/compare/daf9f9d60a00edf5c874a35b621acc7d0e5a8e06..master). I could not stop laughing for so long, made my day.
 
 ## Takeaway
-Part of me is being a bit dramatic here just due to my frustration, but if you really want to use OpenStack Ansible then go for it. I ran out of patience with it and want to try something different that'll be eaiser to maintain for a development lab (`<cough>` [K8s](https://kubernetes.io/), [Apache CloudStack](https://cloudstack.apache.org/downloads.html) `</cough>`), but if you want to still give it a chance here are my recommendations:
+Part of me is being a bit dramatic here just due to my frustration, but if you really want to use OpenStack Ansible then go for it. I ran out of patience with it and want to try something different that'll be eaiser to maintain for a development lab (`<cough>` [kolla-ansible](https://docs.openstack.org/kolla-ansible/latest/index.html), [K8s](https://kubernetes.io/), [Apache CloudStack](https://cloudstack.apache.org/downloads.html) `</cough>`), but if you want to still give it a chance here are my recommendations:
 
  * There are three main playbooks that you run sequentially during the deployment entitled: `setup-hosts.yml`, `setup-infrastructure.yml` and `setup-openstack.yml`. The only thing these playbooks do is import other playbooks, so please **don't use them.** Instead, open up each of these "setup" playbooks and run the playbooks they include one by one. After each playbook you run, look through your journal logs and verify the operation of the thing you just deployed. You'll thank me later.
  * Use the legacy rsyslog rather than the new remote journal service. I had issue with the remote journal service not sending logs fast enough to actually be useful in real time debugging. Could've just been my own fault, but there you go.

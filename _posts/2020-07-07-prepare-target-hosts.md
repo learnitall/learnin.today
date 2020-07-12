@@ -1,12 +1,12 @@
 ---
 title: "OSA: Preparing Target Hosts with Ansible Playbooks"
 categories:
-  - Openstack Ansible
+  - OpenStack Ansible
 tags:
-  - Openstack Ansible
+  - OpenStack Ansible
   - OSA
   - Linux
-  - Openstack
+  - OpenStack
   - Ansible
   - Automation
   - DevOPS
@@ -14,11 +14,11 @@ tags:
 
 Like most humans my age, I make a sh\*t load of mistakes. I'm a young adult making his way through the world and it takes time to become competent enough to, for instance, remember to feed yourself.
 
-In particular though, through the course of setting up a development Openstack cluster I've had to start over quite a few times. In my defense, it takes a hot minute to learn the ins-and-outs of Openstack and sometimes [a hard reset is all you need](https://www.youtube.com/watch?v=nn2FB1P_Mn8)... or at least a hard reset is what you're forced to do when you've, uh, messed up that bad.
+In particular though, through the course of setting up a development OpenStack cluster I've had to start over quite a few times. In my defense, it takes a hot minute to learn the ins-and-outs of OpenStack and sometimes [a hard reset is all you need](https://www.youtube.com/watch?v=nn2FB1P_Mn8)... or at least a hard reset is what you're forced to do when you've, uh, messed up that bad.
 
 > Eh it's not prod, so, water under the bridge yeah?
 
-Starting from scratch with [Openstack Ansible (OSA)](https://docs.openstack.org/openstack-ansible/latest/) isn't the worst thing in the world because your process of trial-and-error involves just modifying your configuration files and then running your playbooks again. However, I've been at a point where I've messed up so poorly that I've needed to reinstall my target nodes entirely, as in, start with a fresh install of linux. This can become tedious because you can't straight up run OSA on fresh nodes because you have to bootstrap them first. (This process can be found in the Openstack Ansible Deployment Guide on the page ["Prepare the target hosts"](https://docs.openstack.org/project-deploy-guide/openstack-ansible/latest/targethosts.html).)
+Starting from scratch with [OpenStack Ansible (OSA)](https://docs.openstack.org/openstack-ansible/latest/) isn't the worst thing in the world because your process of trial-and-error involves just modifying your configuration files and then running your playbooks again. However, I've been at a point where I've messed up so poorly that I've needed to reinstall my target nodes entirely, as in, start with a fresh install of linux. This can become tedious because you can't straight up run OSA on fresh nodes because you have to bootstrap them first. (This process can be found in the OpenStack Ansible Deployment Guide on the page ["Prepare the target hosts"](https://docs.openstack.org/project-deploy-guide/openstack-ansible/latest/targethosts.html).)
 
 This bootstrapping process is like the walk of shame; it can be tedious as hell to do the same set of steps on all your nodes everytime you need to start over, therefore, I put together a playbook that automates the process. This way the next time I mess up my deployment and need to start over, I can fully automate the bootstrapping process for each target node in my cluster. It works fairly well, but I'd like to walk through it because there are some really important steps I've included in the playbook that aren't actually mentioned on the ["Prepare the target hosts"](https://docs.openstack.org/project-deploy-guide/openstack-ansible/latest/targethosts.html) page.
 
@@ -75,7 +75,7 @@ Here we just perform a standard upgrade of all packages and then install needed 
 
 ### Disabling SELinux and firewalld
 
-As of Openstack Train, the latest supported version of Openstack that Openstack Ansible supports, SELinux and firewall rules haven't been created so it's recommended to just turn them off. Note however that **it's important SELinux is set to permissive rather than disabled**. One of the playbooks that OSA runs ([ansible-hardening](https://opendev.org/openstack/ansible-hardening)) will check by default to see if SELinux is running and fail if it isn't. Disabling SELinux will interrupt your playbook, but setting to permissive will pass the relevant task while making sure SELinux doesn't get in the way of your deployment later on.
+As of OpenStack Train, the latest supported version of OpenStack that OpenStack Ansible supports, SELinux and firewall rules haven't been created so it's recommended to just turn them off. Note however that **it's important SELinux is set to permissive rather than disabled**. One of the playbooks that OSA runs ([ansible-hardening](https://opendev.org/openstack/ansible-hardening)) will check by default to see if SELinux is running and fail if it isn't. Disabling SELinux will interrupt your playbook, but setting to permissive will pass the relevant task while making sure SELinux doesn't get in the way of your deployment later on.
 
 ```yaml
 - name: Ensure SELinux is disabled

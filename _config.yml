@@ -125,10 +125,14 @@ author:
       url: "https://github.com/learnitall"
     - label: "Feed"
       icon: "fas fa-fw fa-rss-square"
-      url: "https://learnitall.github.io/feed.xml"
+      url: "https://learnin.today/feed.xml"
     - label: "LinkedIn"
       url: "https://linkedin.com/in/ryan-drew"
       icon: "fab fa-fw fa-linkedin"
+    - label: "PGP"
+      url: "https://learnin.today/pgp"
+      icon: "fas fa-key"
+
     
 
 # Site Footer

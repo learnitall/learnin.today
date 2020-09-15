@@ -132,6 +132,9 @@ author:
     - label: "PGP"
       url: "https://learnin.today/pgp"
       icon: "fas fa-key"
+    - label: "Resume"
+      url: "https://learnin.today/assets/documents/ryan_drew_resume_2020.pdf"
+      icon: "fas fa-file"
 
     
 

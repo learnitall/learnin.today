@@ -57,5 +57,5 @@ Hitting **Next** we get the glorious **Repair your computer** button. To verify 
 
 ![Screengrab of running diskpart after booting the VM](../../assets/images/diskpart.png).
 
-Viola! We can see the three standard partitions found on a disk with Windows installed! Now any of the tools found on this ISO will have access to the broken Windows disk we want to repair, yet there's no USB or rebooting required. If you have any questions or suggestions about this neat little tip, feel free to send me an email. My GPG key and address are posted on the left.
+Viola! We can see the three standard partitions found on a disk with Windows installed! Now any of the tools found on this ISO will have access to the broken Windows disk we want to repair, yet there's no USB or rebooting required. If you have any questions or suggestions about this neat little tip, feel free to send me an email. My PGP key and address are posted on the left.
 

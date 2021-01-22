@@ -37,7 +37,7 @@ Next we'll create the new VM, working through the setup wizard as follows:
 
 > This next step is based on a tutorial from charleslabri.com that can be found [here](https://www.charleslabri.com/adding-passthrough-physical-disk-in-kvm-guests/)
 
-The final step along this processes is to manually passthrough the target Windows disk to the VM. (My Fedora system labled my Windows install disk as `/dev/sdb`, but yours may be different!) To do this, in the new window that opened up after hitting **Finish**, hit **Add Hardware** in the lower left and selected **Storage** in the leftmost column. Going straight to the **XML** tab, enter the following XML, which will ask the host to pass the disk containing Windows (in this case `/dev/sdb`) to the VM using SATA:
+The final step along this processes is to manually passthrough the target Windows disk to the VM. (My Fedora system labled my Windows install disk as `/dev/sdb`, but yours may be different!) To do this, in the new window that opened up after hitting **Finish**, hit **Add Hardware** in the lower left and selected **Storage** in the leftmost column. Go straight to the **XML** tab and enter the following XML, which will ask the host to pass the disk containing Windows (in this case `/dev/sdb`) to the VM using SATA:
 
 ```xml
 <disk type='block' device='disk'>
@@ -47,7 +47,7 @@ The final step along this processes is to manually passthrough the target Window
 </disk>
 ```
 
-> Be sure to use not add a trailing `/` onto your device path (i.e. `/dev/sdb` rather than `/dev/sdb/`). You may receive a permissions error of some sort if the extra `/` is added.
+> Be sure to not add a trailing `/` onto your device path (i.e. `/dev/sdb` rather than `/dev/sdb/`). You may receive a permissions error of some sort if the extra `/` is added.
 
 Now with this done, hit **Finish** and then **Begin Installation**. After a short period of time we should see the initial *Windows Setup* screen.
 

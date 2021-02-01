@@ -38,3 +38,17 @@ Here's a quote from **Petr** within the bug report who found the source of the i
 >
 > So I deleted libcrypto.so.1.1 from Matlab directory and it works now (same as scilab).
 
+## Bonus: Application Entry in Gnome
+
+After working through the installer GUI and getting matlab all ready to go, you'll find that the installer doesn't add an application entry for GNOME. This means that the only way to actually run matlab is by executing ``matlab`` from the terminal. After some more searching on ecosia, here is a ``.desktop`` file that can be placed into ``~/.local/share/applications``:
+
+```ini
+[Desktop Entry]
+Type=Application
+Icon=matlab
+Name=Matlab
+Exec=/usr/local/bin/matlab -desktop -prefersoftwareopengl
+Terminal=false
+```
+
+Be sure to restart GNOME in order for the application entry to appear, which can be done by logging out and logging back in, or by doing a quick ``ALT+F2, r, ENTER``.

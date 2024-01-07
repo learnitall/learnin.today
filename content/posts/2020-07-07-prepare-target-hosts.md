@@ -1,5 +1,6 @@
 ---
-title: "OSA: Preparing Target Hosts with Ansible Playbooks"
+title: 'OSA: Preparing Target Hosts with Ansible Playbooks'
+date: 2020-07-07
 categories:
   - OpenStack Ansible
 tags:
@@ -9,7 +10,7 @@ tags:
   - OpenStack
   - Ansible
   - Automation
-  - DevOPS
+  - DevOps
 ---
 
 Like most humans my age, I make a sh\*t load of mistakes. I'm a young adult making his way through the world and it takes time to become competent enough to, for instance, remember to feed yourself.
@@ -40,7 +41,6 @@ Here we just perform a standard upgrade of all packages and then install needed 
 |`NetworkManager-glib`, `nm-connection-editor`|Needed for the [nmcli](https://docs.ansible.com/ansible/latest/modules/nmcli_module.html) Ansible module.|
 |`@Development Tools`|I had to install this to get the [neutron playbook](https://opendev.org/openstack/openstack-ansible-os_neutron) to run successfully. I was receiving an error stating `gcc` was missing.|
 
-{% raw %}
 ```yaml
 - name: Perform an upgrade on all packages
   yum:
@@ -71,7 +71,6 @@ Here we just perform a standard upgrade of all packages and then install needed 
     - tmux
     - vim
 ```
-{% endraw %}
 
 ### Disabling SELinux and firewalld
 
@@ -93,7 +92,6 @@ As of OpenStack Train, the latest supported version of OpenStack that OpenStack 
 
 This is all straight from the documentation, with the exception of the `br_netfilter` module. I can't remember which one of the OSA playbooks requires this to be loaded, but if it isn't loaded then your `setup-everything.yml` is going to fail at some point. 
 
-{% raw %}
 ```yaml
 - name: Load additional kernel modules
   copy:
@@ -122,7 +120,6 @@ This is all straight from the documentation, with the exception of the `br_netfi
     comment: 'openstack-ansible'
     key: "{{ lookup('file', '/root/.ssh/osa/id_rsa.pub') }}"
 ```
-{% endraw %}
 
 ## Interface Configurations
 
@@ -139,8 +136,6 @@ Alright here is where things get weird. For my deployment I was setting up the f
 My goal was to configure all of these interfaces with the use of the [nmcli](https://docs.ansible.com/ansible/latest/modules/nmcli_module.html) Ansible module, however I had some trouble (see [ansible-collections](https://github.com/ansible-collections)/[community.general](https://github.com/ansible-collections/community.general) issues [#472](https://github.com/ansible-collections/community.general/issues/472) and [#473](https://github.com/ansible-collections/community.general/issues/473)), so I had to do it by hand by executing `nmcli` commands with the classtic [command](https://docs.ansible.com/ansible/latest/modules/command_module.html#command-module) module.
 
 To make this happen I created a few host variables:
-
-{% raw %}
 
 * `{{ opsint }}`: Short for 'openstack interface'. This is the one interface that all of the bridge interfaces listed in the table above will use for their connection. An example of this value is `em1` or `p2p1`.
 * `{{ ip }}`: Each bridge interface above is on its own subnet and each of my nodes has the same static host ID in each subnet. This host ID is stored in `ip`. I found that using static addressing was way easier to manage than DHCP because some of the services in the OSA deployment won't wait for the DHCP lease to be acquired before starting, therefore requiring a manual reset.
@@ -197,8 +192,6 @@ Finally we can go ahead and restart `NetworkManager` for giggles:
 ```
 
 Now our interfaces are ready to go.
-
-{% endraw %}
 
 ## Storage Configuration
 

@@ -1,5 +1,6 @@
 ---
 title: "I Tried OpenStack Ansible and Had a Bad Time. Here's Why."
+date: 2020-07-08
 categories:
   - OpenStack Ansible
 tags:
@@ -101,8 +102,6 @@ listen galera 192.168.1.10:3306
 
 This configuration will essentially cause haproxy to distribute any requests it gets for the galera cluster to each of the galera nodes, distributing load pretty nicely. Unfortunately however, this is the configuration that Openstack Ansible deploys by default:
 
-{% raw %}
-
 ```yaml
 proxy_default_services:
   - service:
@@ -110,8 +109,6 @@ proxy_default_services:
       haproxy_backend_nodes: "{{ (groups['galera_all'] | default([]))[:1] }}"  # list expected
       haproxy_backup_nodes: "{{ (groups['galera_all'] | default([]))[1:] }}"
 ```
-
-{% endraw %}
 
 > See [https://opendev.org/openstack/openstack-ansible/src/commit/6430540a4a0c909719bdddda0152195fbae6dc31/inventory/group_vars/haproxy/haproxy.yml](https://opendev.org/openstack/openstack-ansible/src/commit/6430540a4a0c909719bdddda0152195fbae6dc31/inventory/group_vars/haproxy/haproxy.yml)
 
@@ -123,16 +120,12 @@ This tunnels all galera traffic to the first galera node in the cluster, leaving
 
 To fix these issues, I had to change the OpenStack Ansible configuration to the following:
 
-{% raw %}
-
 ```yaml
 proxy_default_services:
   - service:
       haproxy_service_name: galera
       haproxy_backend_nodes: "{{ (groups['galera_all'] | default([])) }}" # list expected
 ```
-
-{% endraw %}
 
 One tradeoff of this change however is that after I implemented it in my deployment, I was receiving quite a few deadlock errors from my OpenStack services. Check out the change review I linked above for more discussion on this.
 
@@ -163,8 +156,6 @@ In my deployment I wanted a ceph-backed cinder and a swift-backed glance. This w
 ### Swift Invalid systemctl Service Template
 
 When swift is deployed, the following bit of yaml is used to tell Ansible to deploy the systemd service files for each of the swift services that need to be started up and managed:
-
-{% raw %}
 
 ```yaml
 - name: Run the systemd service role
@@ -201,7 +192,6 @@ When swift is deployed, the following bit of yaml is used to tell Ansible to dep
     - systemd-service
 
 ```
-{% endraw %}
 
 > See: [https://opendev.org/openstack/openstack-ansible-os_swift/src/commit/abb1c721e50258a0fede787b810e3b17e59d85f7/tasks/main.yml](https://opendev.org/openstack/openstack-ansible-os_swift/src/commit/abb1c721e50258a0fede787b810e3b17e59d85f7/tasks/main.yml)
 
@@ -227,7 +217,6 @@ This function will cause the swift processes to switch to over to their dedicate
 
 Changing the effective user of a process requires root permissions, therefore since the swift services in an OSA deployment are configured to run as `swift`, then the calls to`os.setgid` and `os.setuid` [will always raise](https://stackoverflow.com/questions/7529252/operation-not-permitted-on-using-os-setuid-python) an `OSError` with `Errno 1`. If you want your swift services to actually start, you need to tell systemd to run them as `root` so they can change to the `swift` on their own. This can be done by changing the `systemd_user_name` to `root`, so the above yaml will now look like the following:
 
-{% raw %}
 ```yaml
 - name: Run the systemd service role
   import_role:
@@ -238,8 +227,6 @@ Changing the effective user of a process requires root permissions, therefore si
     ...
 ...
 ```
-{% endraw %}
-
 
 ### Swift Proxy Containers Need openrc File
 
@@ -271,7 +258,6 @@ The changes I had to make to get this playbook to work are a little fuzzy becaus
 
 First off, there's a bit of yaml in [playbooks/comon-tasks/ceph-server.yml](https://opendev.org/openstack/openstack-ansible/src/commit/8fa414e1f8e2528c2bcaae706d1a4b893b591c04/playbooks/common-tasks/ceph-server.yml) that tries to install [PyYAML](https://pypi.org/project/PyYAML/) for python3:
 
-{% raw %}
 ```yaml
 - block:
     - name: Install python3-yaml
@@ -292,7 +278,6 @@ First off, there's a bit of yaml in [playbooks/comon-tasks/ceph-server.yml](http
       pip:
         name: PyYAML
 ``` 
-{% endraw %}
 
 On CentOS this will:
 
@@ -336,9 +321,7 @@ While running the [os-neutron-install](https://opendev.org/openstack/openstack-a
 
 Alright. I saved the best for last. The issues with the Zun playbook hurt the most because they're so stupid, yet so impactful, I can't believe no one else has caught them.
 
- Check out the first two tasks in the [os-zun-install](https://opendev.org/openstack/openstack-ansible/src/commit/8fa414e1f8e2528c2bcaae706d1a4b893b591c04/playbooks/os-zun-install.yml) playbook:
-
-{% raw %}
+Check out the first two tasks in the [os-zun-install](https://opendev.org/openstack/openstack-ansible/src/commit/8fa414e1f8e2528c2bcaae706d1a4b893b591c04/playbooks/os-zun-install.yml) playbook:
 
 ```yaml
 - name: Gather zun facts
@@ -354,8 +337,6 @@ Alright. I saved the best for last. The issues with the Zun playbook hurt the mo
   vars_files:
   ...
 ```
-
-{% endraw %}
 
 The `Gather zun facts` task is applied to the host group `zun`, which doesn't exist. Luckily the task **right below it** called `Install the zun components` is applied to the right group entitled `zun_all`, so before running this playbook please do yourself a favor and replace the non-existent `zun` host group with the existant `zun_all` host group.
 
@@ -395,7 +376,6 @@ I'm pretty sure this `when` conditional needed a logical AND on those two condit
 
 Ok now check this one out- this one is my favorite in the whole post. Tell me what's wrong with the following snippet of this configuration file [os_zun/defaults/main.yml](https://opendev.org/openstack/openstack-ansible-os_zun/src/commit/bc3de56005fb9a69a5cadb2313f3a8518d857bb0/defaults/main.yml):
 
-{% raw %}
 ```yaml
 zun_service_publicuri: "{{ zun_service_publicuri_proto }}://{{ external_lb_vip_address }}:{{ zun_service_port }}"
 zun_service_publicurl: "{{ zun_service_publicuri }}"
@@ -404,13 +384,13 @@ zun_service_adminurl: "{{ zun_service_adminuri }}"
 zun_service_internaluri: "{{ zun_service_internaluri_proto }}://{{ internal_lb_vip_address }}:{{ zun_service_port }}"
 zun_service_internalurl: "{{ zun_service_internaluri }}"
 ```
-{% endraw %}
 
 Can you see it? What if I told you each of these variables is a URL constructed as "protocol://ip:port"? Can you see now that the `zun_service_adminuri` is missing a damn colon after the protocl?
 
 Oh and I sh\*t you not, it's been missing that colon for over two years. Look at this comparison UI that shows a diff between the first commit in the [openstack-ansible-os_zun](https://opendev.org/openstack/openstack-ansible-os_zun) repository to the last commit in the master branch (look for line 158 in the file `defaults/main.yml`): [https://github.com/openstack/openstack-ansible-os_zun/compare/daf9f9d60a00edf5c874a35b621acc7d0e5a8e06..master](https://github.com/openstack/openstack-ansible-os_zun/compare/daf9f9d60a00edf5c874a35b621acc7d0e5a8e06..master). I could not stop laughing for so long, made my day.
 
 ## Takeaway
+
 Part of me is being a bit dramatic here just due to my frustration, but if you really want to use OpenStack Ansible then go for it. I ran out of patience with it and want to try something different that'll be eaiser to maintain for a development lab (`<cough>` [kolla-ansible](https://docs.openstack.org/kolla-ansible/latest/index.html), [K8s](https://kubernetes.io/), [Apache CloudStack](https://cloudstack.apache.org/downloads.html) `</cough>`), but if you want to still give it a chance here are my recommendations:
 
  * There are three main playbooks that you run sequentially during the deployment entitled: `setup-hosts.yml`, `setup-infrastructure.yml` and `setup-openstack.yml`. The only thing these playbooks do is import other playbooks, so please **don't use them.** Instead, open up each of these "setup" playbooks and run the playbooks they include one by one. After each playbook you run, look through your journal logs and verify the operation of the thing you just deployed. You'll thank me later.

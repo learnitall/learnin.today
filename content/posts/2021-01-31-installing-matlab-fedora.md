@@ -1,5 +1,6 @@
 ---
 title: "Fix for Matlab Installer Bug on Fedora 33"
+date: 2021-01-31
 categories:
   - Linux
 tags:

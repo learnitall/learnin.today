@@ -1,0 +1,72 @@
+baseURL: https://learnin.today
+languageCode: en-us
+title: Ryan Drew
+paginate: 5
+
+enableRobotsTXT: true
+
+minify:
+  disableXML: true
+  minifyOutput: true
+
+module:
+  imports:
+    - path: github.com/adityatelange/hugo-PaperMod
+      disable: false
+
+languages:
+  en:
+    languageName: "English"
+    weight: 1
+    taxonomies:
+      series: series
+      category: categories
+      tag: tags
+    menu:
+      main:
+        - name: Posts
+          url: posts/
+          weight: 5
+        - name: Categories
+          url: categories/
+          weight: 10
+        - name: Tags
+          url: tags/
+          weight: 15
+
+params:
+  defaultTheme: auto
+  author: Ryan Drew
+  title: Ryan Drew
+  keywords:
+    - Blog
+    - Software
+    - DevOps
+    - Automation
+  editPost:
+    disabled: true
+  ShowReadingTime: true
+  ShowShareButtons: true
+  displayFullLangName: false
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowAllPagesInArchive: true
+  ShowPageNums: false
+  ShowToc: true
+  UseHugoToc: true
+  disableScrollToTop: false
+  comments: false
+  homeInfoParams:
+    Title: Learn. Build. Contribute.
+    Content: >
+      Welcome to my personal blog, where I share an assortment
+      of my thoughts and ideas.
+  socialIcons:
+    - name: "github"
+      url: "https://github.com/learnitall"
+    - name: "linkedin"
+      url: "https://linkedin.com/in/ryan-drew"
+    - name: "slack"
+      url: "https://cilium.slack.com/team/U03BHNSGTME"
+

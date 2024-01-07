@@ -1,5 +1,6 @@
 ---
 title: "Assigning Operator Privileges for Domain Users in Openstack"
+date: 2020-07-27
 categories:
   - Openstack_Administration
 tags:
@@ -215,10 +216,10 @@ I have no idea why- if you know why, please send me an email!
 
 Anyways, now when we log into Horizon as the `rdrew` user we get a sweet 'Admin' tab that appears in our sidebar:
 
-![Admin tab appears in Horizon](../../assets/images/ops_horizon_admin.png)
+![Admin tab appears in Horizon](images/ops_horizon_admin.png)
 
 Let's check it out:
 
-![Admin, System, Defaults Page in Horizon](../../assets/images/ops_horizon_admin_defaults.png)
+![Admin, System, Defaults Page in Horizon](images/ops_horizon_admin_defaults.png)
 
 Hell yeah. Case closed.

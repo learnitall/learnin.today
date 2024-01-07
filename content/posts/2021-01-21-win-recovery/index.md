@@ -1,5 +1,6 @@
 ---
 title: "Using Windows 10 Recovery Tools without Booting from USB"
+date: 2021-01-21
 categories:
   - Linux
 tags:
@@ -25,7 +26,7 @@ Luckily I had a backup of my Fedora Workstation home directory, so I decided to 
 
 Creating this virtual machine required a bit of manual XML editing in order to get the proper disk passthrough of the Windows install. Here I'm going to be using [virt-manager](https://virt-manager.org/) rather than [virsh](https://www.libvirt.org/manpages/virsh.html) on the CLI, so first we need to go in and enable XML editing within the virt-manager GUI, as it is disabled by default. To do this, head to **Edit -> Preference -> General**.
 
-![Screengrab of the "Enable XML editing" radio box in virt-manager](../../assets/images/xml_editing.png)
+![Screengrab of the "Enable XML editing" radio box in virt-manager](images/xml_editing.png)
 
 Next we'll create the new VM, working through the setup wizard as follows:
 
@@ -51,11 +52,11 @@ The final step along this processes is to manually passthrough the target Window
 
 Now with this done, hit **Finish** and then **Begin Installation**. After a short period of time we should see the initial *Windows Setup* screen.
 
-![Screengrab of the "Windows Setup" screen on boot](../../assets/images/win10_setup.png).
+![Screengrab of the "Windows Setup" screen on boot](images/win10_setup.png)
 
 Hitting **Next** we get the glorious **Repair your computer** button. To verify that we have our Windows disk available to modify, select **Troubleshoot -> Command Prompt** and run some `diskpart`:
 
-![Screengrab of running diskpart after booting the VM](../../assets/images/diskpart.png).
+![Screengrab of running diskpart after booting the VM](images/diskpart.png)
 
 Viola! We can see the three standard partitions found on a disk with Windows installed! Now any of the tools found on this ISO will have access to the broken Windows disk we want to repair, yet there's no USB or rebooting required. If you have any questions or suggestions about this neat little tip, feel free to send me an email. My PGP key and address are posted on the left.
 

@@ -1,5 +1,6 @@
 ---
 title: "Installing CentOS 8 on Old Hardware"
+date: 2020-07-16
 categories:
   - Linux
 tags:
@@ -78,7 +79,7 @@ Even though I couldn't install CentOS 8, I could still install CentOS 7 like sli
 
 > Link in case the JS fails: [https://gist.github.com/learnitall/80d5474045a019eba30c3738bd3c57ca#file-upgrade_centos_8-yml](https://gist.github.com/learnitall/80d5474045a019eba30c3738bd3c57ca#file-upgrade_centos_8-yml)
 
-<script src="https://gist.github.com/learnitall/80d5474045a019eba30c3738bd3c57ca.js"></script>
+{{< gist learnitall 80d5474045a019eba30c3738bd3c57ca >}}
 
 I'm able to assume a lot in this playbook because I knew it was going to be run against systems that just got done with a fresh, minimal install of CentOS 7. So far it works pretty well! I'm concerned that there are going to be some package dependency issues down the line that I'll discover as I start to use my servers, but we'll just have to wait and see.
 
